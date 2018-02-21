@@ -1,0 +1,67 @@
+---
+output:
+  github_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+status <- "happy"
+glue::glue("Ian is {status}")
+glue::glue("Ian is nearly {53 * 12} months old")
+```
+
+
+
+```{r}
+x <- list(a = c(1, 4, 7),
+          b = c(1, 2, 3, 4, 5, 6, 7),
+          c = c(10, 20, 30, 70, 90),
+          d = c(13, 56, 23, 75))
+
+x
+```
+
+```{r}
+means <- numeric(length(x))
+for(ii in seq_along(x)){
+  means[ii] <- mean(x[[ii]])
+}
+
+means
+
+setNames(means, names(x))
+```
+
+```{r}
+map(x, mean)
+
+map_dbl(x, mean)
+```
+
+
+```{r}
+got_chars
+
+got_chars[[1]]
+
+map_chr(got_chars, "name")
+
+map_chr(got_chars, "born")
+
+map_chr(got_chars, ~glue::glue("{.x$name} was born {.x$born}"))
+```
+
+
+```{r}
+x <- c(1, 4, 6, 8)
+y <- c(1, 2, 3, 4)
+
+map2(x, y, rep)
+```
+
+
+
