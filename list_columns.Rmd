@@ -1,0 +1,19 @@
+---
+output:
+  github_document
+---
+
+```{r}
+library(tidyverse)
+```
+```{r}
+mpg
+
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point()
+
+last_plot() +
+  geom_smooth(method = "lm")
+
+```
+

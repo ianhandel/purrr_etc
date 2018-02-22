@@ -69,13 +69,9 @@ mpg
 
 map(mpg, mean)
 
-purrr::modify_if(mpg, is_character, str_to_upper) %>% as_tibble
-
 keep(mpg, is_bare_numeric) %>% map_df(mean)
 
-
-mpg %>% 
-  mutate_if(is_bare_numeric, ~round(.) %>% as.integer())
+purrr::modify_if(mpg, is_character, str_to_upper) %>% as_tibble
 ```
 
 
