@@ -1,0 +1,57 @@
+---
+output:
+  github_document
+---
+
+```{r}
+library(tidyverse)
+library(broom)
+
+mpg
+
+lm(hwy ~ displ, data = mpg)
+
+lm_mod <- function(df){
+  lm(hwy ~ displ, data = df)
+}
+
+lm_mod(mpg)
+
+
+mpg_manf <- mpg %>% 
+  group_by(manufacturer) %>% 
+  nest()
+
+mpg_manf$data[[3]]
+
+mpg_manf <- mpg_manf %>% 
+  mutate(model = map(data, lm_mod))
+
+mpg_manf$model[[1]]
+
+mpg_manf <- mpg_manf %>% 
+  mutate(fit = map(model, tidy))
+
+mpg_manf$fit[[1]]
+
+mpg_manf <- mpg_manf %>% 
+  unnest(fit)
+```
+
+```{r}
+mpg_manf %>%
+  filter(term == "(Intercept)") %>% 
+  ggplot(aes(x = fct_reorder(manufacturer, estimate), y = estimate)) +
+  geom_point() +
+  coord_flip()
+```
+
+```{r}
+mpg %>%
+  group_by(manufacturer) %>% 
+  nest() %>% 
+  mutate(model = map(data, ~lm(hwy ~ displ, data = .x)),
+         fit = map(model, tidy)) %>% 
+  unnest(fit)
+```
+
