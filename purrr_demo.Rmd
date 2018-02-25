@@ -10,14 +10,6 @@ library(repurrrsive)
 
 
 ```{r}
-status <- "happy"
-glue::glue("Ian is {status}")
-glue::glue("Ian is nearly {53 * 12} months old")
-```
-
-
-
-```{r}
 x <- list(a = c(1, 4, 7),
           b = c(1, 2, 3, 4, 5, 6, 7),
           c = c(10, 20, 30, 70, 90),
@@ -38,9 +30,11 @@ setNames(means, names(x))
 ```
 
 ```{r}
+# map(.x, .f)
 map(x, mean)
 
 map_dbl(x, mean)
+map_df(x, mean)
 ```
 
 
@@ -63,6 +57,25 @@ y <- c(1, 2, 3, 4)
 
 map2(x, y, rep)
 ```
+
+```{r}
+excelfile <- here("data", "ians_example_20180225.xlsx")
+
+excelsheets <- readxl::excel_sheets(excelfile)
+
+readsheet <- function(file, sheet){
+  readxl::read_excel(file, sheet) %>% 
+    mutate(sheet = sheet,
+           file = fs::path_file(file))
+}
+
+readsheet(excelfile, "day_1")
+
+mydata <- map_df(excelsheets, ~readsheet(excelfile, .x))
+
+```
+
+
 
 ```{r}
 mpg

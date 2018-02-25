@@ -1,0 +1,28 @@
+---
+title: "Handy R stuff"
+author: "Ian Handel"
+output:
+  html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## RTudio Projects
+
+- use them
+- they are good
+
+
+## here:: package
+
+```{r}
+library(here)
+here::dr_here()
+here("data", "ians_example_20180225.xlsx")
+```
+
+
+
+
