@@ -2,7 +2,7 @@
 title: "Handy R stuff"
 author: "Ian Handel"
 output:
-  html_document
+  github_document
 ---
 
 ```{r setup, include=FALSE}
