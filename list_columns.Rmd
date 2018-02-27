@@ -52,6 +52,11 @@ mpg %>%
   nest() %>% 
   mutate(model = map(data, ~lm(hwy ~ displ, data = .x)),
          fit = map(model, tidy)) %>% 
-  unnest(fit)
+  unnest(fit) %>% 
+  filter(term == "(Intercept)") %>% 
+  ggplot(aes(x = fct_reorder(manufacturer, estimate), y = estimate)) +
+  geom_point() +
+  labs(x = "Manufacturer") +
+  coord_flip()
 ```
 
